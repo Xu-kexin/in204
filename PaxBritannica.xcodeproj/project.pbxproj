@@ -7,24 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		482F7B692945DE610037094D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482F7B682945DE610037094D /* main.cpp */; };
+		482F7B732945DEAE0037094D /* MyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482F7B702945DEAD0037094D /* MyApp.cpp */; };
+		4886292F294A758200163F01 /* GamePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4886292D294A758200163F01 /* GamePage.cpp */; };
+		48FFCE0A2945E95300AD5CCD /* WelcomePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FFCE082945E95300AD5CCD /* WelcomePage.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		482F7B632945DE610037094D /* CopyFiles */ = {
+		482F7B632945DE610037094D /* Copy Files (2 items) */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			name = "Copy Files (2 items)";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		482F7B652945DE610037094D /* PaxBritannica */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PaxBritannica; sourceTree = BUILT_PRODUCTS_DIR; };
-		482F7B682945DE610037094D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		482F7B702945DEAD0037094D /* MyApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MyApp.cpp; sourceTree = "<group>"; };
+		482F7B712945DEAE0037094D /* MyApp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MyApp.hpp; sourceTree = "<group>"; };
+		4886292D294A758200163F01 /* GamePage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePage.cpp; sourceTree = "<group>"; };
+		4886292E294A758200163F01 /* GamePage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GamePage.hpp; sourceTree = "<group>"; };
+		48862931294A767C00163F01 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		48862933294A7CF600163F01 /* parameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parameters.h; sourceTree = "<group>"; };
+		48FFCE082945E95300AD5CCD /* WelcomePage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WelcomePage.cpp; sourceTree = "<group>"; };
+		48FFCE092945E95300AD5CCD /* WelcomePage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WelcomePage.hpp; sourceTree = "<group>"; };
+		48FFCE0B2945EA5900AD5CCD /* PaxBritannica.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PaxBritannica.entitlements; sourceTree = "<group>"; };
+		48FFCE0E2945EC3C00AD5CCD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +69,34 @@
 		482F7B672945DE610037094D /* PaxBritannica */ = {
 			isa = PBXGroup;
 			children = (
-				482F7B682945DE610037094D /* main.cpp */,
+				48FFCE0C2945EC0F00AD5CCD /* res */,
+				48FFCE0B2945EA5900AD5CCD /* PaxBritannica.entitlements */,
+				48FFCE012945E8BD00AD5CCD /* pages */,
+				482F7B702945DEAD0037094D /* MyApp.cpp */,
+				482F7B712945DEAE0037094D /* MyApp.hpp */,
+				48862933294A7CF600163F01 /* parameters.h */,
 			);
 			path = PaxBritannica;
+			sourceTree = "<group>";
+		};
+		48FFCE012945E8BD00AD5CCD /* pages */ = {
+			isa = PBXGroup;
+			children = (
+				48FFCE082945E95300AD5CCD /* WelcomePage.cpp */,
+				48FFCE092945E95300AD5CCD /* WelcomePage.hpp */,
+				4886292D294A758200163F01 /* GamePage.cpp */,
+				4886292E294A758200163F01 /* GamePage.hpp */,
+			);
+			path = pages;
+			sourceTree = "<group>";
+		};
+		48FFCE0C2945EC0F00AD5CCD /* res */ = {
+			isa = PBXGroup;
+			children = (
+				48FFCE0E2945EC3C00AD5CCD /* logo.png */,
+				48862931294A767C00163F01 /* background.png */,
+			);
+			path = res;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,7 +108,7 @@
 			buildPhases = (
 				482F7B612945DE610037094D /* Sources */,
 				482F7B622945DE610037094D /* Frameworks */,
-				482F7B632945DE610037094D /* CopyFiles */,
+				482F7B632945DE610037094D /* Copy Files (2 items) */,
 			);
 			buildRules = (
 			);
@@ -119,7 +156,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				482F7B692945DE610037094D /* main.cpp in Sources */,
+				482F7B732945DEAE0037094D /* MyApp.cpp in Sources */,
+				4886292F294A758200163F01 /* GamePage.cpp in Sources */,
+				48FFCE0A2945E95300AD5CCD /* WelcomePage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +171,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -162,7 +201,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -176,10 +215,46 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/include/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-I/usr/local/lib/wx/include/osx_cocoa-unicode-3.2",
+					"-I/usr/local/include/wx-3.2",
+					"-D_FILE_OFFSET_BITS=64",
+					"-DWXUSINGDLL",
+					"-D__WXMAC__",
+					"-D__WXOSX__",
+					"-D__WXOSX_COCOA__",
+				);
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-framework",
+					IOKit,
+					"-framework",
+					Carbon,
+					"-framework",
+					Cocoa,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					System,
+					"-framework",
+					OpenGL,
+					"-lwx_osx_cocoau_xrc-3.2",
+					"-lwx_osx_cocoau_html-3.2",
+					"-lwx_osx_cocoau_qa-3.2",
+					"-lwx_osx_cocoau_core-3.2",
+					"-lwx_baseu_xml-3.2",
+					"-lwx_baseu_net-3.2",
+					"-lwx_baseu-3.2",
+				);
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -190,7 +265,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -220,7 +295,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -228,9 +303,45 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/include/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-I/usr/local/lib/wx/include/osx_cocoa-unicode-3.2",
+					"-I/usr/local/include/wx-3.2",
+					"-D_FILE_OFFSET_BITS=64",
+					"-DWXUSINGDLL",
+					"-D__WXMAC__",
+					"-D__WXOSX__",
+					"-D__WXOSX_COCOA__",
+				);
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-framework",
+					IOKit,
+					"-framework",
+					Carbon,
+					"-framework",
+					Cocoa,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					System,
+					"-framework",
+					OpenGL,
+					"-lwx_osx_cocoau_xrc-3.2",
+					"-lwx_osx_cocoau_html-3.2",
+					"-lwx_osx_cocoau_qa-3.2",
+					"-lwx_osx_cocoau_core-3.2",
+					"-lwx_baseu_xml-3.2",
+					"-lwx_baseu_net-3.2",
+					"-lwx_baseu-3.2",
+				);
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -238,20 +349,32 @@
 		482F7B6D2945DE610037094D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = PaxBritannica/PaxBritannica.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5P46MBRP8W;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = .;
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		482F7B6E2945DE610037094D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = PaxBritannica/PaxBritannica.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5P46MBRP8W;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = .;
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
