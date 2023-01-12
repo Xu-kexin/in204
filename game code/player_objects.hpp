@@ -1,3 +1,5 @@
+#pragma once
+
 #include "objects.hpp"
 
 enum class faction_t {

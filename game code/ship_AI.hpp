@@ -1,3 +1,5 @@
+#pragma once
+
 #include "exceptions.hpp"
 #include <boost/asio.hpp> // timers
 

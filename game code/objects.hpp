@@ -1,5 +1,12 @@
+#pragma once
 
+#include "exceptions.hpp"
+#include "math_functions.hpp"
 
+double boundary_x = 1000;
+double boundary_y = 1000;
+// TODO: sync boundaries with game window
+double boundary_angle = 360;
 
 enum class object_t {
     Map_Feature;
@@ -21,6 +28,35 @@ private:
     double angle_acceleration;
 
     object_t object_type;
+
+    bool check_inside_bound_x(double some_x){
+        if(some_x<0 || some_x>boundary_x) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    bool check_inside_bound_y(double some_y){
+        if(some_y<0 || some_y>boundary_y) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    bool check_inside_bound_angle(double some_angle){
+        if(some_angle<0 || some_angle>boundary_angle) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    bool check_inside_bound_speed(double some_speed_x, double some_speed_y){
+        if(square(some_speed_x) + square(some_speed_y)>square(boundary_speed)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 protected:
     // BASIC FUNCTIONS
@@ -44,9 +80,19 @@ protected:
         return this->angle_acceleration; }
 
     void set_position_x(double new_x) {
-        this->position_x = new_x; }
+        if(check_inside_bound_x(new_x)) {
+            this->position_x = new_x; 
+        } else {
+            throw Exception out_of_bounds;
+        }
+    }
     void set_position_y(double new_y) {
-        this->position_y = new_y; }
+        if(check_inside_bound_y(new_y)) {
+            this->position_y = new_y; 
+        } else {
+            throw Exception out_of_bounds;
+        }
+    }
     void set_speed_x(double new_x) {
         this->speed_x = new_x; }
     void set_speed_y(double new_y) {
@@ -56,7 +102,12 @@ protected:
     void set_acceleration_y(double new_y) {
         this->acceleration_y = new_y; }
     void set_angle(double new_angle) {
-        this->angle = new_angle; }
+        if(check_inside_bound_angle(new_angle)) {
+            this->angle = new_angle; 
+        } else {
+            throw Exception out_of_bounds;
+        }
+    }
     void set_angle_derivative(double new_angle_speed) {
         this->angle_derivative = new_angle_speed; }
     void set_angle_acceleration(double new_angle_acceleration) {
@@ -91,12 +142,10 @@ protected:
         game_object(position_x, position_y, speed_x, speed_y, 0, 0, angle, angle_derivative, 0, object_type);
         }
     
-    game_object() = delete; 
+    game_object() = delete; // don't create empty objects
 
 
     ~game_object();
-
-
 
 
 }

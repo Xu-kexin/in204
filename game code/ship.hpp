@@ -1,3 +1,5 @@
+#pragma once
+
 
 #include "ship_AI.hpp"
 #include "exceptions.hpp"
