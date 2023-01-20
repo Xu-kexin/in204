@@ -39,15 +39,13 @@ int default_health(ship_t ship_type) {
 
 
 
-class ship {
-public:
-    class player_object;
+class ship : player_object {
 private:
     // ship stats   
     // int maximum_health; 
     int remaining_health;
     AI_data_t AI_data;                    // -> ship AI + current AI state
-    const ship_t ship_type;
+    const ship_t ship_type;         // Describes the kind of ship it is for purposes of finding AI or health. Not to be confused with object_type (image).
     
 
     // ship specialty // OPTIONAL; TODO IF WE HAVE THE TIME
@@ -61,9 +59,6 @@ public:
     void set_health(int new_health) {
         this->remaining_health = new_health;
     }
-    int get_faction() {
-        return this->belongs_to;
-    }
 
     int get_max_health() {
         return default_health(this->ship_type);
@@ -72,13 +67,14 @@ public:
 
 
     // Constructors and destructors.
-    explicit ship(  int faction, ship_t ship_type,
-                    double position_x, double position_y, double speed_x, double speed_y, double angle) {
+    explicit ship(  player_object &player_obj, ship_t ship_type) {
+
         this->ship_type = ship_type;
         this->remaining_health = default_health(ship_type);
         this->AI = starting_AI(ship_type);
     }
 
+    // TODO: finish that!!!!!
 
 }
 

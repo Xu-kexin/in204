@@ -18,24 +18,29 @@ void update_position(game_object &obj){
     obj.set_position_y(obj.get_position_y() + obj.get_speed_y()*delta_time);
 }
 
+// game_object s don't update their speed by default. Only ship s do.  
 void update_speed(game_object &obj){
+
+    throw Exception asked_strange_calculation;
+
     obj.set_speed_x(obj.get_speed_x() + obj.get_acceleration_x()*delta_time);
     obj.set_speed_y(obj.get_speed_y() + obj.get_acceleration_y()*delta_time);
 }
 
-void update_acceleration(game_object &obj){
-
-}
+// game_object s don't update their acceleration by default. Only ship s do.  
+//void update_acceleration(game_object &obj){
+//
+//}
 
 void update_angle(game_object &obj){
-
+    obj.set_angle(obj.get_angle + obj.get_angle_speed)
 }
 
 void update_angle_speed(game_object &obj){
 
 }
 
-void update_angle_derivative(game_object &obj){
+void update_angle_speed(game_object &obj){
 
 }
 
