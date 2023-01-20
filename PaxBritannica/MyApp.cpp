@@ -7,6 +7,6 @@ bool MyApp::OnInit()
 {
     // Create an instance of the welcome page
     auto welcomePage = new WelcomePage();
-    welcomePage->Show(true);
+    welcomePage->Show();
     return true;
 }

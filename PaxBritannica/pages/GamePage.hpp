@@ -6,21 +6,24 @@
     #include "wx/wx.h"
 #endif
 #include <wx/dcbuffer.h>
+#include "wx/toolbar.h"
 
 class GamePage : public wxFrame
 {
 public:
     // The background image
     wxBitmap m_bitmap;
-    // The bitmap for the ship
-    wxBitmap m_titleBitmap;
+    // Buttons
+    wxButton* returnButton {nullptr};
+    wxButton* replayButton {nullptr};
     GamePage();
 private:
     // Event handler for the painting
     void OnPaint(wxPaintEvent& event);
-    void OnStart(wxCommandEvent& event);
-    // Event handler for the end button
-    void OnEnd(wxCommandEvent& event);
+    // Event handler for replay
+    void OnReplay(wxCommandEvent& event);
+    // Event handler for exit
+    void OnReturn(wxCommandEvent& event);
 };
 
 

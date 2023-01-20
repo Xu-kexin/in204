@@ -13,6 +13,7 @@
     #include "wx/wx.h"
 #endif
 
-static const wxSize windowSize(800, 600);
+static wxSize windowSize(800, 600);
 
 #endif /* parameters_h */
+
