@@ -23,14 +23,14 @@ enum class
 class AI_data_t {
     // const int AI_sort; // == ship type
     AI_state_t AI_state;
-    duration_type timer;
+    double timer; // Much like lifespan, in seconds
 }
 
 AI_data_t starting_AI_data(ship_type) {
     AI_data_t this_data;
     switch (ship_type) {
         case Fighter:
-            AI;
+            return Fighter_AI;
         case Bomber:
             return Bomber_AI;
         case Frigate:

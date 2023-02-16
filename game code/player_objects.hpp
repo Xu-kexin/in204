@@ -17,32 +17,34 @@ private:
 
 protected:
 // Constructors and destructors
-    player_object(double position_x, double position_y, 
+    explicit player_object(double position_x, double position_y, 
                 double speed_x, double speed_y, 
                 double acceleration_x, double acceleration_y, 
                 double angle, double angle_speed, double angle_acceleration,
-                double size,
+                double size, double mass,
+                double lifespan,
                 object_t object_type, faction_t faction): belongs_to(faction) {
         this->object = object(position_x, position_y, 
                             speed_x, speed_y, 
                             acceleration_x, acceleration_y, 
                             angle, angle_speed, angle_acceleration,
-                            size,
+                            size, mass,
+                            lifespan,
                             object_type);
     }
-    player_object(player_object other): belongs_to(other->belongs_to) {
+    player_object(const player_object& other): belongs_to(other->belongs_to) {
         this->object = other->object;
     }
 
-    player_object(double position_x, double position_y, 
+    explicit player_object(double position_x, double position_y, 
             double speed_x, double speed_y,
             double angle, double angle_speed,
-            double size,
+            double size, double mass,
             object_t object_type, faction_t faction): belongs_to(faction) {
                 this->object = object(position_x, position_y,
                                     speed_x, speed_y,
                                     angle, angle_speed,
-                                    size,
+                                    size, mass,
                                     object_type)
     }
     player_object() = delete; // No making a player object without specifying its characteristics.
@@ -57,4 +59,6 @@ public:
         this->belongs_to = new_faction; }
     */
 }
+
+
 

@@ -1,5 +1,7 @@
 #pragma once
 
+//#define EPSILON 0.01
+
 #include "exceptions.hpp"
 #include "math_functions.hpp"
 
@@ -29,6 +31,9 @@ private:
     double angle_acceleration;
 
     double size;
+    double mass;
+
+    double lifespan;            // Seconds left to live. <-1.0 (recommended: -2.0) if it must not expire
 
     object_t object_type;       // Name of the art file
 
@@ -77,28 +82,41 @@ protected:
         }
     }
 
+    bool check_inside_bound_mass(double some_mass){
+        return some_mass>0;
+    }
+
+    bool check_finite_lifespan(double some_time){
+        return (some_time+1 >= 0);
+    }
+
     // BASIC FUNCTIONS
-    double get_position_x() {
+    double get_position_x() const {
         return this->position_x; }
-    double get_position_y() {
+    double get_position_y() const {
         return this->position_y; }
-    double get_speed_x() {
+    double get_speed_x() const {
         return this->speed_x; }
-    double get_speed_y() {
+    double get_speed_y() const {
         return this->speed_y; }
-    double get_acceleration_x() {
+    double get_acceleration_x() const {
         return this->acceleration_x; }
-    double get_acceleration_y() {
+    double get_acceleration_y() const {
         return this->acceleration_y; }
-    double get_angle() {
+    double get_angle() const {
         return this->angle; }
-    double get_angle_speed() {
+    double get_angle_speed() const {
         return this->angle_speed; }
-    double get_angle_acceleration() {
+    double get_angle_acceleration() const {
         return this->angle_acceleration; }
 
-    double get_size() {
+    double get_size() const {
         return this->size; }
+    double get_mass() const {
+        return this->mass; }
+
+    double get_lifespan() const {
+        return this->lifespan; }
 
     void set_position_x(double new_x) {
         if(check_inside_bound_x(new_x)) {
@@ -156,6 +174,21 @@ protected:
             this->size = abs_min(this->size, new_size);
         }
     }
+    void set_mass(double new_mass) {
+        if(check_inside_bound_mass(new_mass)) {
+            this->size = new_mass;
+        }
+    }
+
+    void set_lifespan(double new_lifespan) {
+        this->lifespan = new_lifespan;
+    }
+
+    void tick_lifespan(double delta_time) {
+        if check_finite_lifespan(this->lifespan) {
+            this->lifespan = this->lifespan -= delta_time;
+        } // If it doesn't expire, ticking down does nothing
+    }
 
     
 
@@ -164,33 +197,36 @@ protected:
                 double speed_x, double speed_y, 
                 double acceleration_x, double acceleration_y, 
                 double angle, double angle_speed, double angle_acceleration,
-                double size,
+                double size, double mass,
+                double lifespan;
                 object_t object_type) {
         
         this->position_x = position_x; this->position_y = position_y; 
         this->speed_x = speed_x; this->speed_y = speed_y; 
         this->acceleration_x = acceleration_x; this->acceleration_y = acceleration_y
         this->angle = angle; this->angle_speed = angle_speed; this->angle_acceleration = angle_acceleration;
-        this->size = size;
+        this->size = size; this->mass = mass;
+        this->lifespan = lifespan;
         this->object_type = object_type;
         // Still the object?
         //this->acceleration_x = 0; this->acceleration_y = 0; this->angle_speed = 0;
     }
-    game_object(game_object other) { // HE WHO COPIES NOTHING CREATES NOTHING
-        this->position_x = other->position_x; this->position_y = other->position_y;
+    game_object(const game_object& other) { // HE WHO COPIES NOTHING CREATES NOTHING
+        this->position_x = other->position_x + other->size; this->position_y = other->position_y + other->size; // No collision
         this->speed_x = other->speed_x; this->speed_y = other->speed_y; 
         this->acceleration_x = other->acceleration_x; this->acceleration_y = other->acceleration_y
         this->angle = other->angle; this->angle_speed = other->angle_speed; this->angle_acceleration = other->angle_acceleration;
-        this->size = other->size;
+        this->size = other->size; this->mass = other->mass;
+        this->lifespan = mass->lifespan;
         this->object_type = other->object_type;
     }
 
-    game_object(double position_x, double position_y, 
+    explicit game_object(double position_x, double position_y, 
             double speed_x, double speed_y,
             double angle, double angle_speed,
-            double size,
+            double size, double mass,
             object_t object_type) { // default objects are floating in the void with no acceleration.
-        game_object(position_x, position_y, speed_x, speed_y, 0, 0, angle, angle_speed, 0, size, object_type);
+        game_object(position_x, position_y, speed_x, speed_y, 0, 0, angle, angle_speed, 0, size, mass, -2.0, object_type);
         }
     
     game_object() = delete; // don't create empty objects

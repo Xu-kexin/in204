@@ -37,7 +37,46 @@ int default_health(ship_t ship_type) {
     }
 }
 
+class ship : public player_object {
+private:
+    // Ship stats   
+    int remaining_health;
+    AI_data_t AI_data;                    // -> ship AI + current AI state
+    const ship_t ship_type;         // Describes the kind of ship it is for purposes of finding AI or health. Not to be confused with object_type (image).
 
+public:
+
+    int get_health() const {
+        return this->remaining_health;
+    }
+
+    void set_health(int new_health) {
+        this->remaining_health = new_health;
+    }
+
+    int get_max_health() const {
+        return default_health(this->ship_type);
+    }
+
+    // Constructors and destructors.
+    explicit ship(player_object& player_obj, ship_t ship_type) 
+    : player_object(player_obj), ship_type(ship_type) 
+    {
+        this->remaining_health = default_health(ship_type);
+        this->AI_data = starting_AI(ship_type);
+    }
+
+    ship(const ship& other) 
+    : player_object(other), ship_type(other->ship_type), 
+      remaining_health(other->remaining_health) 
+    { this->AI_data = other->AI_data; }
+
+    ship() = delete; // No making empty ships
+
+    ~ship();
+
+    // TODO: implement everything needed here
+};
 
 class ship : player_object {
 private:
@@ -79,4 +118,11 @@ public:
 }
 
 
+void interact(player_object &obj1, player_object &obj2) {
+    // Assumption: there is a collision.
+    // Check faction
+    
 
+    // Delete an object, deduce hitpoints, etc.
+
+}
