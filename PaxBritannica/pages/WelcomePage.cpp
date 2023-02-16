@@ -1,3 +1,10 @@
+//
+//  WelcomePage.cpp
+//  PaxBritannica
+//
+//  Created by Laurine Xu on 2022/12/08.
+//
+
 #include "WelcomePage.hpp"
 #include "GamePage.hpp"
 
@@ -65,6 +72,7 @@ void WelcomePage::OnPaint(wxPaintEvent& event)
     
     // Get the size of the frame
     auto size = GetClientSize();
+    windowSize = size;
     
     soundButton->SetPosition(wxPoint(20, size.GetHeight()-40));
     

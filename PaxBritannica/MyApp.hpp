@@ -1,3 +1,10 @@
+//
+//  Myapp.hpp
+//  PaxBritannica
+//
+//  Created by Laurine Xu on 2022/12/14.
+//
+
 #ifndef MyApp_hpp
 #define MyApp_hpp
 

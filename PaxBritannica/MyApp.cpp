@@ -1,3 +1,10 @@
+//
+//  Myapp.cpp
+//  PaxBritannica
+//
+//  Created by Laurine Xu on 2022/12/14.
+//
+
 #include "MyApp.hpp"
 #include "pages/WelcomePage.hpp"
 

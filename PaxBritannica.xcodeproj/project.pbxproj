@@ -10,6 +10,7 @@
 		482DF7EA2970AC48001E0401 /* SoundpPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482DF7E82970AC48001E0401 /* SoundpPlayer.cpp */; };
 		482F7B732945DEAE0037094D /* MyApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482F7B702945DEAD0037094D /* MyApp.cpp */; };
 		4886292F294A758200163F01 /* GamePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4886292D294A758200163F01 /* GamePage.cpp */; };
+		48A77FA0299D79400005A7AE /* Environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48A77F9F299D79400005A7AE /* Environment.cpp */; };
 		48FFCE0A2945E95300AD5CCD /* WelcomePage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FFCE082945E95300AD5CCD /* WelcomePage.cpp */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,9 @@
 		4886292E294A758200163F01 /* GamePage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GamePage.hpp; sourceTree = "<group>"; };
 		48862931294A767C00163F01 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		48862933294A7CF600163F01 /* parameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parameters.h; sourceTree = "<group>"; };
+		48A77F99299D68E00005A7AE /* Ship.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ship.hpp; sourceTree = "<group>"; };
+		48A77F9D299D6F4B0005A7AE /* Environment.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Environment.hpp; sourceTree = "<group>"; };
+		48A77F9F299D79400005A7AE /* Environment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Environment.cpp; sourceTree = "<group>"; };
 		48FFCE082945E95300AD5CCD /* WelcomePage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WelcomePage.cpp; sourceTree = "<group>"; };
 		48FFCE092945E95300AD5CCD /* WelcomePage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WelcomePage.hpp; sourceTree = "<group>"; };
 		48FFCE0B2945EA5900AD5CCD /* PaxBritannica.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PaxBritannica.entitlements; sourceTree = "<group>"; };
@@ -69,6 +73,7 @@
 		482F7B672945DE610037094D /* PaxBritannica */ = {
 			isa = PBXGroup;
 			children = (
+				48A77F97299D68C50005A7AE /* ships */,
 				482DF7E72970AC07001E0401 /* utils */,
 				48FFCE0C2945EC0F00AD5CCD /* res */,
 				48FFCE0B2945EA5900AD5CCD /* PaxBritannica.entitlements */,
@@ -78,6 +83,16 @@
 				48862933294A7CF600163F01 /* parameters.h */,
 			);
 			path = PaxBritannica;
+			sourceTree = "<group>";
+		};
+		48A77F97299D68C50005A7AE /* ships */ = {
+			isa = PBXGroup;
+			children = (
+				48A77F99299D68E00005A7AE /* Ship.hpp */,
+				48A77F9F299D79400005A7AE /* Environment.cpp */,
+				48A77F9D299D6F4B0005A7AE /* Environment.hpp */,
+			);
+			path = ships;
 			sourceTree = "<group>";
 		};
 		48FFCE012945E8BD00AD5CCD /* pages */ = {
@@ -159,6 +174,7 @@
 			files = (
 				482F7B732945DEAE0037094D /* MyApp.cpp in Sources */,
 				4886292F294A758200163F01 /* GamePage.cpp in Sources */,
+				48A77FA0299D79400005A7AE /* Environment.cpp in Sources */,
 				482DF7EA2970AC48001E0401 /* SoundpPlayer.cpp in Sources */,
 				48FFCE0A2945E95300AD5CCD /* WelcomePage.cpp in Sources */,
 			);

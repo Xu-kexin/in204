@@ -17,3 +17,5 @@ static wxSize windowSize(800, 600);
 
 #endif /* parameters_h */
 
+// todo repaint + timer + sound + updatecollison + 图片大小子弹
+

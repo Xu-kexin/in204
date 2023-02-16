@@ -1,3 +1,10 @@
+//
+//  WelcomePage.hpp
+//  PaxBritannica
+//
+//  Created by Laurine Xu on 2022/12/08.
+//
+
 #ifndef WelcomePage_hpp
 #define WelcomePage_hpp
 

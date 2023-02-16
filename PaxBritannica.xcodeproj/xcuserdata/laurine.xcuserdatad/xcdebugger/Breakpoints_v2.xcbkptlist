@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8F196200-B403-4630-933B-779BD33C40CE"
-            shouldBeEnabled = "Yes"
+            uuid = "4EAAA962-CF27-4FC1-9697-A24F95BB1A4A"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaxBritannica/pages/GamePage.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "GamePage::OnReturn(event)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "GamePage::GamePage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
