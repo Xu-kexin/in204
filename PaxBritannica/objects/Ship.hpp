@@ -20,16 +20,19 @@
 #include <stdexcept>
 
 class Ship {
+    friend class Environment;
+    friend bool operator==(const Ship& s1, const Ship& s2) {
+        return s1.id == s2.id;
+    }
+    friend bool operator!=(const Ship& s1, const Ship& s2) {
+        return s1.id != s2.id;
+    }
 public:
     Ship() {};
-    Ship(bool large, int variant, int speed, int health = 1): large{large}, variant{variant}, speed{speed}, health{health} {
+    Ship(unsigned int id, bool large, int variant, int speed, int health): id(id), large{large}, variant{variant}, speed{speed}, health{health} {
         if (!variant || variant > 4)
             throw std::runtime_error("Only 4 types of ship is supported!");
     }
-    
-    int getVariant() { return variant; }
-    
-    bool isLarge() { return large; }
     
     void SetPosition(int x, int y) {
         pos.x = x;
@@ -40,11 +43,11 @@ public:
         pos.x -= speed;
     }
     
-    wxPoint& GetPosition() { return pos; }
-    
     bool GotHit(int dmg) {
         health -= dmg;
-        return health > 0;
+        if (health < 0)
+            health = 0;
+        return health == 0;
     }
     
     bool isPlayer() { return variant < 0; }
@@ -52,8 +55,10 @@ public:
 private:
     int speed;
     int health {1};
+    int score {0};
     bool large;
     int variant;
+    unsigned int id;
     wxPoint pos;
 };
 

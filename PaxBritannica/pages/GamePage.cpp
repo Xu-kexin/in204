@@ -7,9 +7,18 @@
 #include "WelcomePage.hpp"
 #include "GamePage.hpp"
 
+#define TIMER_ID 1000
 const char* g_backgoundFiles="res/background.png";
 
-GamePage::GamePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), env(windowSize)
+#define W(s)    s.GetWidth()
+#define H(s)    s.GetHeight()
+
+#define FONT_SIZE     20
+#define FONT_HEIGHT   FONT_SIZE*1.2
+
+#define BUTTON_PADDING  10
+
+GamePage::GamePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), env(wxSize(W(windowSize), H(windowSize)*4/5-FONT_HEIGHT-BUTTON_PADDING), wxPoint(0, H(windowSize)/20+FONT_HEIGHT)), m_timer(this, TIMER_ID)
 {
     // Set the size and position of the frame
     SetSize(windowSize);
@@ -19,36 +28,39 @@ GamePage::GamePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), env(windowS
     wxInitAllImageHandlers();
     // Load the background image
     m_bitmap.LoadFile(g_backgoundFiles, wxBITMAP_TYPE_ANY);
+    wxBitmap::Rescale(m_bitmap, windowSize);
    
     // Bind the OnPaint method to the EVT_PAINT event
     Bind(wxEVT_PAINT, &GamePage::OnPaint, this);
     
+    wxPanel* panel = new wxPanel(this);
+    panel->Bind(wxEVT_KEY_DOWN, &GamePage::OnKeyDown, this);
+    panel->Bind(wxEVT_KEY_UP, &GamePage::OnKeyUp, this);
+    
     // Pose the return and replay buttons
-    returnButton = new wxButton(this, wxID_ANY, "Return");
-    replayButton = new wxButton(this, wxID_ANY, "Replay");
+    auto exitButton = new wxButton(this, wxID_ANY, "Exit");
+    auto replayButton = new wxButton(this, wxID_ANY, "Replay");
     // Bind the buttons to event handlers
-    returnButton->Bind(wxEVT_BUTTON, &GamePage::OnReturn, this);
+    exitButton->Bind(wxEVT_BUTTON, &GamePage::OnExit, this);
     replayButton->Bind(wxEVT_BUTTON, &GamePage::OnReplay, this);
+    exitButton->SetPosition(wxPoint(W(windowSize)*4/6, H(windowSize)*17/20));
+    replayButton->SetPosition(wxPoint(W(windowSize)/6, H(windowSize)*17/20));
+    
+    wxFont font(FONT_SIZE, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+    wxPoint p(0, H(windowSize)/40);
+    score1 = new wxStaticText(this, wxID_ANY, "", p, wxSize(W(windowSize)/2, FONT_HEIGHT), wxALIGN_CENTRE);
+    score1->SetFont(font);
+    score1->SetForegroundColour(wxColour(255, 0, 0));
     
     // Draw the text string
     CreateStatusBar(2);
-    SetStatusText("Credit: Amaury Lorin, Kexin Xu", 1);
+    SetStatusText("Credit: Kexin Xu, Amaury Lorin", 1);
     
-    env.AddPlayer(1);
-    for (int i=0; i<5; i++)
-        env.AddBot();
+    env.AddPlayer();
     
-    // Timer for updating every 1s
-    std::thread timer([this]{
-        while(true){
-            if (stopped) return;
-            this->env.Step();
-            this->Refresh();
-            usleep(2048);
-        }
-    });
-    timer.detach();
-    
+    // Set a timer for updating every 1s
+    Bind(wxEVT_TIMER, &GamePage::OnTimer, this);
+    m_timer.Start(100);
 }
 
 void GamePage::OnPaint(wxPaintEvent& event)
@@ -60,31 +72,109 @@ void GamePage::OnPaint(wxPaintEvent& event)
     SetSize(windowSize);
     
     // Draw the background image
-    wxBitmap bg(m_bitmap);
-    wxBitmap::Rescale(bg, windowSize);
-    dc.DrawBitmap(bg, 0, 0, true);
+    dc.DrawBitmap(m_bitmap, 0, 0);
     
-    returnButton->SetPosition(wxPoint(windowSize.GetWidth()*4/6, windowSize.GetHeight()*5/6));
-    replayButton->SetPosition(wxPoint(windowSize.GetWidth()/6, windowSize.GetHeight()*5/6));
+    wxPen p(wxColour(255, 255, 255));
+    dc.SetPen(p);
+    dc.DrawLine(0, H(windowSize)/20+FONT_HEIGHT, W(windowSize), H(windowSize)/20+FONT_HEIGHT);
+    dc.DrawLine(W(windowSize)/2, 0, W(windowSize)/2, H(windowSize)/20+FONT_HEIGHT);
     
-    env.DrawShips(dc);
+    // Show the health and score value
+    score1->SetLabel(wxString::Format("Player1: Score: %08d  Health: %d", env.GetScore(1), env.GetHp(1)));
+    
+    env.Draw(dc);
 }
 
-
-// Event handler for replay
 void GamePage::OnReplay(wxCommandEvent& event)
 {
+    m_timer.Stop();
     auto NewGame = new GamePage();
     Close(true);
     NewGame->Show();
 }
 
-// Event handler for return
-void GamePage::OnReturn(wxCommandEvent& event)
+void GamePage::OnExit(wxCommandEvent& event)
 {
-    auto Welcome = new WelcomePage();
-    Close(true);
-    Welcome->Show();
+    exit(0);
 }
 
+void GamePage::OnTimer(wxTimerEvent &event) {
+    if (key_pressed1 & 1) {
+        auto now = std::chrono::steady_clock::now();
+        if ((now - last_shoot).count() > 500 * 1000000) {   // ns
+            env.Shoot(1);
+            last_shoot = now;
+        }
+    }
+    if (key_pressed1 & UP) {
+        env.MovePlayer(1, UP);
+    }
+    if (key_pressed1 & DOWN) {
+        env.MovePlayer(1, DOWN);
+    }
+    if (key_pressed1 & LEFT) {
+        env.MovePlayer(1, LEFT);
+    }
+    if (key_pressed1 & RIGHT) {
+        env.MovePlayer(1, RIGHT);
+    }
+    int r = rand()%100;
+    if (r < 10)
+        env.AddBot(r >= 8);
+    if (!env.Step()) {
+        wxFont font(40, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+        wxStaticText* gameover = new wxStaticText(this, wxID_ANY, "Game over!");
+        gameover->SetFont(font);
+        gameover->SetForegroundColour(wxColour(255, 255, 255));
+        wxSize s = (windowSize - gameover->GetSize())/2;
+        gameover->SetPosition(wxPoint(W(s), H(s)));
+        m_timer.Stop();
+    }
+    Refresh();
+}
 
+void GamePage::OnKeyDown(wxKeyEvent &event) {
+    switch (event.GetKeyCode()) {
+        //TODO: -> french kbd
+        case 'W':
+            key_pressed1 |=UP;
+            break;
+        case 'S':
+            key_pressed1 |=DOWN;
+            break;
+        case 'A':
+            key_pressed1 |=LEFT;
+            break;
+        case 'D':
+            key_pressed1 |=RIGHT;
+            break;
+        case ' ':
+            key_pressed1 |=1;
+            break;
+        default:
+            break;
+    }
+}
+
+void GamePage::OnKeyUp(wxKeyEvent &event) {
+    switch (event.GetKeyCode()) {
+        //TODO: -> french kbd
+        case 'W':
+            key_pressed1 &=~UP;
+            break;
+        case 'S':
+            key_pressed1 &=~DOWN;
+            break;
+        case 'A':
+            key_pressed1 &=~LEFT;
+            break;
+        case 'D':
+            key_pressed1 &=~RIGHT;
+            break;
+        case ' ':
+            key_pressed1 &=~1;
+            break;
+        default:
+            break;
+    }
+}

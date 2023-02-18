@@ -12,8 +12,9 @@ const char * w_soundFiles="res/music.mp3";
 const char * w_backgoundFiles="res/background.png";
 const char * w_titleFiles="res/logo.png";
 
-WelcomePage::WelcomePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), bg_music(w_soundFiles)
-{
+using namespace std;
+
+WelcomePage::WelcomePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), bg_music(w_soundFiles) {
     // Set the size and position of the frame
     SetSize(windowSize);
     Centre();
@@ -38,7 +39,7 @@ WelcomePage::WelcomePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), bg_mu
     // Create the start and end buttons
     auto startButton = new wxButton(this, wxID_ANY, "Start game");
     auto endButton = new wxButton(this, wxID_ANY, "Exit game");
-    soundButton = new wxButton(this, wxID_ANY, "Mute", wxPoint(20, windowSize.GetHeight()-40));
+    soundButton = new wxButton(this, wxID_ANY, "Mute", wxPoint(20, windowSize.GetHeight()*17/20));
 
     // Put buttons in the bottom of my frame
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
@@ -58,11 +59,10 @@ WelcomePage::WelcomePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), bg_mu
 
     // Draw the text string
     CreateStatusBar(2); 
-    SetStatusText("Credit: Amaury Lorin, Kexin Xu", 1);
+    SetStatusText("Credit: Kexin Xu, Amaury Lorin", 1);
     
     // Sound effect
     PlayMusic();
-    
 }
 
 void WelcomePage::OnPaint(wxPaintEvent& event) 
@@ -71,20 +71,19 @@ void WelcomePage::OnPaint(wxPaintEvent& event)
     wxPaintDC dc(this);
     
     // Get the size of the frame
-    auto size = GetClientSize();
-    windowSize = size;
+    windowSize = GetClientSize();
     
-    soundButton->SetPosition(wxPoint(20, size.GetHeight()-40));
+    if (windowSize.GetHeight()-40 > 0)
+        soundButton->SetPosition(wxPoint(20, windowSize.GetHeight()-40));
     
     // Draw the background image
     wxBitmap bg(m_bitmap);
-    wxBitmap::Rescale(bg, size);
-    dc.DrawBitmap(bg, 0, 0, true);
+    wxBitmap::Rescale(bg, windowSize);
+    dc.DrawBitmap(bg, 0, 0);
     
     // Calculate the x and y coordinates for the title image
-    auto x = (size.GetWidth() - m_titleBitmap.GetWidth()) / 2;
-    auto y = (size.GetHeight() - m_titleBitmap.GetHeight()) / 3;
-    
+    auto x = (windowSize.GetWidth() - m_titleBitmap.GetWidth()) / 2;
+    auto y = (windowSize.GetHeight() - m_titleBitmap.GetHeight()) / 3;
     // Draw the title image at the bottom of the page
     dc.DrawBitmap(m_titleBitmap, x, y, true);
 }

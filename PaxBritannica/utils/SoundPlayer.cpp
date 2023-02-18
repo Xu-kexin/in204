@@ -44,7 +44,7 @@ void soundplay(const char *filename)
 
     /* set the output format and open the output device */
     format.bits = mpg123_encsize(encoding) * BITS;
-    format.rate = rate;
+    format.rate = (int)rate;
     format.channels = channels;
     format.byte_format = AO_FMT_NATIVE;
     format.matrix = 0;
@@ -55,7 +55,7 @@ void soundplay(const char *filename)
         music_lock.lock();
         if (should_exit)
             break;
-        ao_play(dev, buffer, done);
+        ao_play(dev, buffer, (uint32_t)done);
         music_lock.unlock();
     }
 

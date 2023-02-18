@@ -8,8 +8,13 @@
 #ifndef WelcomePage_hpp
 #define WelcomePage_hpp
 
-#include "../parameters.h"
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+    #include "wx/wx.h"
+#endif
 #include "../utils/SoundPlayer.hpp"
+
+static wxSize windowSize(800, 600);
 
 class WelcomePage : public wxFrame
 {
