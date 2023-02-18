@@ -25,6 +25,9 @@ The constructor of the Environment class loads image files for player and bot sh
 #include "Ship.hpp"
 #include "Bullet.hpp"
 
+#define RED wxColour(255,50,50)
+#define BLUE wxColour(100,150,255)
+
 enum MoveDirection {
     UP      = 1<<1,
     DOWN    = 1<<2,
@@ -54,10 +57,12 @@ public:
     
     void MovePlayer(int player_id, MoveDirection dir);
     
+    bool IsPlayerAlive(int player_id);
+    
 private:
     std::vector<wxBitmap> ship_imgs[2] {std::vector<wxBitmap>(4), std::vector<wxBitmap>(4)};
     std::vector<wxBitmap> player_imgs;
-    wxBitmap bullet_img;
+    wxBitmap bullet_img[2];
     
     std::list<Ship> ships;
     Ship* player_ref[2] {nullptr, nullptr};

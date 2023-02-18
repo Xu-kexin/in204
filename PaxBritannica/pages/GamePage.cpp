@@ -18,7 +18,7 @@ const char* g_backgoundFiles="res/background.png";
 
 #define BUTTON_PADDING  10
 
-GamePage::GamePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), env(wxSize(W(windowSize), H(windowSize)*4/5-FONT_HEIGHT-BUTTON_PADDING), wxPoint(0, H(windowSize)/20+FONT_HEIGHT)), m_timer(this, TIMER_ID)
+GamePage::GamePage(bool multi) : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), env(wxSize(W(windowSize), H(windowSize)*4/5-FONT_HEIGHT-BUTTON_PADDING), wxPoint(0, H(windowSize)/20+FONT_HEIGHT)), m_timer(this, TIMER_ID), multiplayer(multi)
 {
     // Set the size and position of the frame
     SetSize(windowSize);
@@ -48,15 +48,25 @@ GamePage::GamePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), env(wxSize(
     
     wxFont font(FONT_SIZE, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
     wxPoint p(0, H(windowSize)/40);
-    score1 = new wxStaticText(this, wxID_ANY, "", p, wxSize(W(windowSize)/2, FONT_HEIGHT), wxALIGN_CENTRE);
-    score1->SetFont(font);
-    score1->SetForegroundColour(wxColour(255, 0, 0));
+    score_text1 = new wxStaticText(this, wxID_ANY, "", p, wxSize(W(windowSize)/2, FONT_HEIGHT), wxALIGN_CENTRE);
+    score_text1->SetFont(font);
+    score_text1->SetForegroundColour(RED);
+    if (multiplayer){
+        wxPoint p2(W(windowSize)/2, H(windowSize)/40);
+        score_text2 = new wxStaticText(this, wxID_ANY, "", p2, wxSize(W(windowSize)/2, FONT_HEIGHT), wxALIGN_CENTRE);
+        score_text2->SetFont(font);
+        score_text2->SetForegroundColour(BLUE);
+    }
     
     // Draw the text string
     CreateStatusBar(2);
     SetStatusText("Credit: Kexin Xu, Amaury Lorin", 1);
     
     env.AddPlayer();
+    if (multiplayer){
+        // Add the second player
+        env.AddPlayer();
+    }
     
     // Set a timer for updating every 1s
     Bind(wxEVT_TIMER, &GamePage::OnTimer, this);
@@ -80,7 +90,14 @@ void GamePage::OnPaint(wxPaintEvent& event)
     dc.DrawLine(W(windowSize)/2, 0, W(windowSize)/2, H(windowSize)/20+FONT_HEIGHT);
     
     // Show the health and score value
-    score1->SetLabel(wxString::Format("Player1: Score: %08d  Health: %d", env.GetScore(1), env.GetHp(1)));
+    if (env.IsPlayerAlive(1))
+        score1 = env.GetScore(1);
+    score_text1->SetLabel(wxString::Format("Player1: Score: %08d  Health: %d", score1, env.GetHp(1)));
+    if (multiplayer) {
+        if (env.IsPlayerAlive(2))
+            score2 = env.GetScore(2);
+        score_text2->SetLabel(wxString::Format("Player2: Score: %08d  Health: %d", score2, env.GetHp(2)));
+    }
     
     env.Draw(dc);
 }
@@ -88,7 +105,7 @@ void GamePage::OnPaint(wxPaintEvent& event)
 void GamePage::OnReplay(wxCommandEvent& event)
 {
     m_timer.Stop();
-    auto NewGame = new GamePage();
+    auto NewGame = new GamePage(multiplayer);
     Close(true);
     NewGame->Show();
 }
@@ -101,9 +118,16 @@ void GamePage::OnExit(wxCommandEvent& event)
 void GamePage::OnTimer(wxTimerEvent &event) {
     if (key_pressed1 & 1) {
         auto now = std::chrono::steady_clock::now();
-        if ((now - last_shoot).count() > 500 * 1000000) {   // ns
+        if ((now - last_shoot1).count() > 500 * 1000000) {   // ns
             env.Shoot(1);
-            last_shoot = now;
+            last_shoot1 = now;
+        }
+    }
+    if (key_pressed2 & 1) {
+        auto now = std::chrono::steady_clock::now();
+        if ((now - last_shoot2).count() > 500 * 1000000) {   // ns
+            env.Shoot(2);
+            last_shoot2 = now;
         }
     }
     if (key_pressed1 & UP) {
@@ -117,6 +141,18 @@ void GamePage::OnTimer(wxTimerEvent &event) {
     }
     if (key_pressed1 & RIGHT) {
         env.MovePlayer(1, RIGHT);
+    }
+    if (key_pressed2 & UP) {
+        env.MovePlayer(2, UP);
+    }
+    if (key_pressed2 & DOWN) {
+        env.MovePlayer(2, DOWN);
+    }
+    if (key_pressed2 & LEFT) {
+        env.MovePlayer(2, LEFT);
+    }
+    if (key_pressed2 & RIGHT) {
+        env.MovePlayer(2, RIGHT);
     }
     int r = rand()%100;
     if (r < 10)
@@ -151,6 +187,21 @@ void GamePage::OnKeyDown(wxKeyEvent &event) {
         case ' ':
             key_pressed1 |=1;
             break;
+        case 315:
+            key_pressed2 |=UP;
+            break;
+        case 317:
+            key_pressed2 |=DOWN;
+            break;
+        case 314:
+            key_pressed2 |=LEFT;
+            break;
+        case 316:
+            key_pressed2 |=RIGHT;
+            break;
+        case 13:
+            key_pressed2 |=1;
+            break;
         default:
             break;
     }
@@ -173,6 +224,21 @@ void GamePage::OnKeyUp(wxKeyEvent &event) {
             break;
         case ' ':
             key_pressed1 &=~1;
+            break;
+        case 315:
+            key_pressed2 &=~UP;
+            break;
+        case 317:
+            key_pressed2 &=~DOWN;
+            break;
+        case 314:
+            key_pressed2 &=~LEFT;
+            break;
+        case 316:
+            key_pressed2 &=~RIGHT;
+            break;
+        case 13:
+            key_pressed2 &=~1;
             break;
         default:
             break;

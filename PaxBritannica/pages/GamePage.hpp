@@ -21,16 +21,21 @@
 class GamePage : public wxFrame
 {
 public:
+    GamePage(bool mult);
+private:
     // The background image
     wxBitmap m_bitmap;
-    GamePage();
-private:
+    bool multiplayer;
     Environment env;
     wxTimer m_timer;
-    wxStaticText* score1 {nullptr};
-    wxStaticText* score2 {nullptr};
+    wxStaticText* score_text1 {nullptr};
+    wxStaticText* score_text2 {nullptr};
     int key_pressed1 {0};
-    std::chrono::steady_clock::time_point last_shoot;
+    int key_pressed2 {0};
+    std::chrono::steady_clock::time_point last_shoot1;
+    std::chrono::steady_clock::time_point last_shoot2;
+    int score1 {0};
+    int score2 {0};
     
     // Event handler for the painting
     void OnPaint(wxPaintEvent& event);

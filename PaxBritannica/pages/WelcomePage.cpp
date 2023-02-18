@@ -33,8 +33,6 @@ WelcomePage::WelcomePage() : wxFrame(nullptr, wxID_ANY, "Pax Britannica"), bg_mu
     // Add the available game modes to the choice widget
     gameModeChoice->Append("One player");
     gameModeChoice->Append("Multiplayer");
-    // Bind the EVT_CHOICE event to the OnGameModeChoice handler
-    gameModeChoice->Bind(wxEVT_CHOICE, &WelcomePage::OnGameModeChoice, this);
 
     // Create the start and end buttons
     auto startButton = new wxButton(this, wxID_ANY, "Start game");
@@ -88,18 +86,11 @@ void WelcomePage::OnPaint(wxPaintEvent& event)
     dc.DrawBitmap(m_titleBitmap, x, y, true);
 }
 
-// Event handler for the game mode choice widget
-void WelcomePage::OnGameModeChoice(wxCommandEvent& event)
-{   
-    // Get the selected game mode
-    auto gameMode = gameModeChoice->GetStringSelection();
-}
-
 // Event handler for the start button
 void WelcomePage::OnStart(wxCommandEvent& event)
 {
     // Start the main program here
-    auto gamePage = new GamePage();
+    auto gamePage = new GamePage(gameModeChoice->GetStringSelection() == "Multiplayer");
     Close(true);
     gamePage->Show();
 }

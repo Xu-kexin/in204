@@ -31,8 +31,6 @@ private:
     
     // Event handler for the painting
     void OnPaint(wxPaintEvent& event);
-    // Event handler for the game mode choice widget
-    void OnGameModeChoice(wxCommandEvent& event);
     // Event handler for the start button
     void OnStart(wxCommandEvent& event);
     // Event handler for the end button
