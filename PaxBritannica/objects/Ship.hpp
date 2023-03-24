@@ -53,12 +53,13 @@ public:
     bool isPlayer() { return variant < 0; }
     
 private:
+    unsigned int id;
+    bool large;
+    int variant;
     int speed;
     int health {1};
     int score {0};
-    bool large;
-    int variant;
-    unsigned int id;
+    
     wxPoint pos;
 };
 

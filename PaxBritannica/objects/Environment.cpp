@@ -22,7 +22,7 @@ const char* large_ship_icon = "res/frigatep%d.png";
 #define BULLET_SIZE         8
 
 // Constructor of the Environment class
-Environment::Environment(wxSize size, wxPoint offset): size(size), offset(offset), player_imgs(2){
+Environment::Environment(wxSize size, wxPoint offset): player_imgs(2), size(size), offset(offset) {
     wxLogNull AD;
     wxInitAllImageHandlers();
     char temp[20] = {0};

@@ -25,9 +25,9 @@ public:
 private:
     // The background image
     wxBitmap m_bitmap;
-    bool multiplayer;
     Environment env;
     wxTimer m_timer;
+    bool multiplayer;
     wxStaticText* score_text1 {nullptr};
     wxStaticText* score_text2 {nullptr};
     int key_pressed1 {0};

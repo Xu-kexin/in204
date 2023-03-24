@@ -1,0 +1,17 @@
+# Xcode
+#
+## Build generated
+build/
+DerivedData/
+
+*.xcworkspace
+!*.xcworkspace/xcshareddata/
+!*.xcworkspace/xcuserdata/
+
+## Other
+*.pbxuser
+*.xcuserstate
+*.xcscmblueprint
+
+.DS_Store
+*._*
