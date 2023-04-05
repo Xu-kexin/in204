@@ -12,13 +12,15 @@ Notre projet est un jeu de tir jouable à 1 ou 2 joueurs.
 ## Installation
 
 Le projet requiert les librairies suivantes : 
-	- [wxWidgets](https://www.wxwidgets.org/) (v3.2.2)
-	- [Libao](https://xiph.org/ao/) (v1.2.2+20180113-1.1ubuntu3)
-	- Libmpg123 ( (v1.29.3-1build1)
+    
+    - [wxWidgets](https://www.wxwidgets.org/) (v3.2.2)
+    - [Libao](https://xiph.org/ao/) (v1.2.2+20180113-1.1ubuntu3)
+    - Libmpg123 ( (v1.29.3-1build1)
 Ainsi que le compilateur [Clang](https://clang.llvm.org/) (v1:14.0-55~exp2)
 
-Vous pouvez les obtenir comme suit :
-Dans un terminal, utilisez les commandes
+Pour jouer sous Windows, utilisez `wsl`.
+
+Vous pouvez obtenir les dépendances en utilisant les commandes suivantes dans un terminal:
 ```
 sudo apt-get install libmpg123-dev
 sudo apt-get install libao-dev
@@ -26,7 +28,7 @@ sudo apt install clang
 sudo apt-get install libwxgtk3.0-gtk3-dev
 ```
 
-Sous Windows, utilisez `wsl` et renommez WSL_Makefile en Makefile dans \Pax_Brittanica (supprimez le Makefile par défaut).
+Sous Windows, renommez WSL_Makefile en Makefile dans \Pax_Brittanica (supprimez le Makefile par défaut).
 
 ## Démarrage
 
