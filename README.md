@@ -5,11 +5,9 @@ Notre projet est un jeu de tir jouable à 1 ou 2 joueurs.
 
 ## Table des Matières
 
-    - Prérequis 
+    - Installation 
+    - Démarrage
     - Comment jouer
-    - Usage
-    - Description
-    - Remerciements
 
 ## Installation
 
@@ -34,6 +32,10 @@ Sous Windows, utilisez `wsl` et renommez WSL_Makefile en Makefile dans \Pax_Brit
 
 Pour pouvoir jouer, rendez-vous dans /Pax_Brittanica et dans un terminal utilisez `make` puis `make run`.
 Sur la page d'accueil, sélectionnez le nombre de joueurs au centre puis lancez la partie en cliquant sur le bouton à gauche.
+
+## Comment jouer
+
 Déplacez le vaisseau rouge avec **WASD** et le vaisseau bleu avec les **touches fléchées**.
 Restez appuyé sur **espace** et **entrée** pour tirer.
+
 Éliminez les ennemis pour gagner des points, et évitez les collisions !
