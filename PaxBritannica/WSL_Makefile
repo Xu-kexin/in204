@@ -1,0 +1,24 @@
+CC = clang++
+CFLAGS = -std=c++11 -Wall -g $(shell wx-config --cxxflags)
+
+LIBS = $(shell wx-config --libs) -lpthread -lao -lmpg123
+SRC_DIRS = . objects pages utils
+OBJ_DIR = build
+SRCS = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
+OBJS = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRCS))
+WX_PRECOMP = 1
+all: myapp
+
+myapp: $(OBJS)
+	
+	$(CC) $(CFLAGS) $(OBJS) -o myapp $(LIBS)
+
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJ_DIR) myapp
+	
+run: myapp
+	./myapp
